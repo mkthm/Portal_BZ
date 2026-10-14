@@ -1,14 +1,15 @@
-// Топология схемы «Метро связок». Координаты в единицах viewBox (0 0 360 540).
+// Топология схемы «Метро связок». Координаты в единицах viewBox (0 0 360 670).
 // Станции привязаны к реальным подразделам posts.json (поле level3_subcategory),
 // поэтому каждая станция ведёт на настоящие материалы базы.
 window.METRO_MAP = {
-  viewBox: { w: 360, h: 540 },
+  viewBox: { w: 360, h: 670 },
 
   lines: {
     ai:    { short: 'ИИ',      full: 'Нейросети и ИИ',     color: '#06B6D4' },
     mkt:   { short: 'Трафик',  full: 'Маркетинг и трафик', color: '#A855F7' },
     biz:   { short: 'Бизнес',  full: 'Бизнес и управление', color: '#10B981' },
-    tools: { short: 'Платежи', full: 'Сервисы и оплаты',   color: '#F59E0B', dashed: true }
+    tools: { short: 'Платежи', full: 'Сервисы и оплаты',   color: '#F59E0B', dashed: true },
+    mp:    { short: 'WB/Ozon', full: 'Маркетплейсы WB и Ozon', color: '#F43F5E' }
   },
 
   // Порядок точек вдоль линии: id станции или угол [x, y].
@@ -16,7 +17,8 @@ window.METRO_MAP = {
     ai:    ['ai_utils', 'ai_prompt', 'ai_code', 'x_funnel', 'ai_visual', 'x_avatar', 'ai_auto', 'x_payai', 'x_seller'],
     mkt:   ['mkt_reels', 'mkt_b2b', 'x_funnel', 'mkt_landing', [310, 140], 'mkt_traffic', 'x_avatar'],
     biz:   ['biz_cases', 'x_import', 'biz_fin', 'biz_mgmt', 'x_seller', 'biz_gov'],
-    tools: ['tools_sheets', 'x_import', 'tools_contractors', [180, 360], 'x_payai', 'tools_connect', [280, 360], 'x_seller', 'tools_vpn']
+    tools: ['tools_sheets', 'x_import', 'tools_contractors', [180, 360], 'x_payai', 'tools_connect', [280, 360], 'x_seller', 'tools_vpn'],
+    mp:    ['x_seller', [330, 490], 'mp_niche', 'mp_cards', 'mp_ff']
   },
 
   // label: сторона подписи (r, l, t, b, tr, tl, br, bl); \n переносит строку.
@@ -59,6 +61,13 @@ window.METRO_MAP = {
     tools_vpn:         { name: 'VPN и OSINT', x: 280, y: 500, label: 'l',
                          subs: ['VPN, OSINT & Веб-сервисы'] },
 
+    mp_niche: { name: 'Аналитика ниш', x: 330, y: 545, label: 'l',
+                subs: ['Аналитика ниш & Топ-позиции (MPStats)'] },
+    mp_cards: { name: 'Карточки и СПП', x: 330, y: 600, label: 'l',
+                subs: ['Оптимизация карточек & СПП'] },
+    mp_ff:    { name: 'Фулфилмент\nи FBS', x: 330, y: 655, label: 'l',
+                subs: ['Фулфилмент, Сборка FBS & Маркировка'] },
+
     x_funnel: { name: 'Автоворонка\nс ИИ', x: 200, y: 140, label: 'bl', interchange: true,
                 title: 'Автоворонка с ИИ в Telegram',
                 about: 'Как трафик превращается в заявки без менеджера: чат-боты и автоответы в Direct и Telegram на нейросетях.',
@@ -73,8 +82,8 @@ window.METRO_MAP = {
                 subs: ['Платежки, Крипта & Зарубежные карты', 'Финтех, P2P & Прием платежей'] },
     x_seller: { name: 'Селлер\nWB 360°', x: 280, y: 440, label: 'tr', interchange: true,
                 title: 'Селлер WB 360°',
-                about: 'Товарный бизнес на маркетплейсах целиком: закупка на 1688 и карго, аналитика ниш, карточки и нейросети для кабинета селлера.',
-                subs: ['AI-автоматизация селлеров', 'Закупки 1688, Фабрики & Карго', 'Аналитика ниш & Топ-позиции (MPStats)', 'Оптимизация карточек & СПП', 'Фулфилмент, Сборка FBS & Маркировка'] },
+                about: 'Товарный бизнес на маркетплейсах: закупка на 1688 и карго, нейросети для карточек и кабинета селлера. Отсюда начинается ветка WB и Ozon.',
+                subs: ['AI-автоматизация селлеров', 'Закупки 1688, Фабрики & Карго'] },
     x_import: { name: 'Импорт\nи авто', x: 100, y: 440, label: 'tl', interchange: true,
                 title: 'Параллельный импорт и автобизнес',
                 about: 'Доставка и подбор коммерческих авто и техники, логистика и карго.',

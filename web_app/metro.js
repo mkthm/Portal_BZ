@@ -995,10 +995,10 @@
     $('loadState').hidden = true;
     $('totalMeta').textContent = `${materials(posts.length)}`;
     renderMap();
+    applyHighlight(); // рисует чипсы: их высота нужна для расчёта вписывания
     contentBox = world.getBBox();
     computeFit();
     fitView(false);
-    applyHighlight();
     placeSheet('closed', false);
   }
   $('retryBtn').addEventListener('click', load);

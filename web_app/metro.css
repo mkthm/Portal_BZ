@@ -11,6 +11,7 @@
   --line-mkt: #A855F7;
   --line-biz: #10B981;
   --line-tools: #F59E0B;
+  --line-mp: #F43F5E;
   --focus: #38BDF8;
 
   --safe-top: max(env(safe-area-inset-top, 0px), var(--tg-content-safe-area-inset-top, 0px));
