@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>База Знаний: AI, Маркетинг & Бизнес</title>
+  <!-- Telegram Web App Script -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            tgBg: 'var(--tg-theme-bg-color, #0f172a)',
+            tgCard: 'var(--tg-theme-secondary-bg-color, #1e293b)',
+            tgText: 'var(--tg-theme-text-color, #f8fafc)',
+            tgHint: 'var(--tg-theme-hint-color, #94a3b8)',
+            tgLink: 'var(--tg-theme-link-color, #38bdf8)',
+            tgButton: 'var(--tg-theme-button-color, #2563eb)',
+            tgButtonText: 'var(--tg-theme-button-text-color, #ffffff)'
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Fast local dataset (441 posts bundle) -->
+  <script src="data.js"></script>
+  <style>
+    body {
+      background-color: var(--tg-theme-bg-color, #0f172a);
+      color: var(--tg-theme-text-color, #f8fafc);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-16 antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Header & Search -->
+  <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-4 pt-3 pb-2.5">
+    <div class="flex items-center justify-between mb-2.5">
+      <div class="flex items-center space-x-2">
+        <span class="text-2xl">🧠</span>
+        <div>
+          <h1 class="text-base font-bold tracking-tight text-white leading-tight">База Знаний</h1>
+          <p id="totalCount" class="text-xs text-slate-400">Загрузка каталога...</p>
+        </div>
+      </div>
+      <button id="favTabBtn" onclick="toggleFavoritesTab()" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-yellow-400 hover:bg-slate-700 border border-slate-700 flex items-center space-x-1 transition active:scale-95">
+        <span>⭐</span>
+        <span id="favCount">0</span>
+      </button>
+    </div>
+
+    <!-- Search input -->
+    <div class="relative mb-2.5">
+      <input type="text" id="searchInput" placeholder="Поиск по 441 материалам, инструментам, темам..."
+        class="w-full bg-slate-800/90 text-sm text-white placeholder-slate-400 rounded-xl px-4 py-2 pl-10 border border-slate-700/80 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+      <span class="absolute left-3 top-2 text-slate-400 text-base">🔍</span>
+      <button id="clearSearch" onclick="clearSearchInput()" class="hidden absolute right-3 top-2 text-slate-400 hover:text-white text-sm">✕</button>
+    </div>
+
+    <!-- Level 1: Hubs Tabs -->
+    <div class="flex space-x-1.5 overflow-x-auto hide-scrollbar text-xs font-medium pb-1">
+      <button onclick="setHub('')" class="hub-pill whitespace-nowrap px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold transition active:scale-95" data-hub="">Все (441)</button>
+      <button onclick="setHub('ai')" class="hub-pill whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition active:scale-95" data-hub="ai">🤖 AI (180)</button>
+      <button onclick="setHub('marketing')" class="hub-pill whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition active:scale-95" data-hub="marketing">📈 Маркетинг (130)</button>
+      <button onclick="setHub('business')" class="hub-pill whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition active:scale-95" data-hub="business">🛠 Бизнес (115)</button>
+      <button onclick="setHub('useful')" class="hub-pill whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition active:scale-95" data-hub="useful">📌 Полезное (16)</button>
+    </div>
+
+    <!-- Level 2: Categories Pills (Functional Roles) -->
+    <div id="categoriesList" class="flex space-x-1.5 overflow-x-auto hide-scrollbar pt-2 text-[11px] font-medium">
+      <!-- Populated dynamically via JS -->
+    </div>
+
+    <!-- Level 3: Subcategories Chips (Specializations & Tools) -->
+    <div id="subcategoriesList" class="hidden flex space-x-1.5 overflow-x-auto hide-scrollbar pt-2 text-[11px]">
+      <!-- Populated dynamically when Category is selected -->
+    </div>
+  </header>
+
+  <!-- Tag Chips Bar -->
+  <div class="px-4 py-2 border-b border-slate-800/60 bg-slate-900/40 flex space-x-1.5 overflow-x-auto hide-scrollbar text-[11px]">
+    <span class="text-slate-400 self-center font-medium mr-1">Теги:</span>
+    <button onclick="toggleTag('claude-code')" class="tag-chip px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700/60 transition" data-tag="claude-code">#claude-code</button>
+    <button onclick="toggleTag('mcp')" class="tag-chip px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700/60 transition" data-tag="mcp">#mcp</button>
+    <button onclick="toggleTag('n8n')" class="tag-chip px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700/60 transition" data-tag="n8n">#n8n</button>
+    <button onclick="toggleTag('reels-growth')" class="tag-chip px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700/60 transition" data-tag="reels-growth">#reels</button>
+    <button onclick="toggleTag('funnels')" class="tag-chip px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700/60 transition" data-tag="funnels">#воронки</button>
+    <button onclick="toggleTag('prompts')" class="tag-chip px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700/60 transition" data-tag="prompts">#промпты</button>
+    <button onclick="toggleTag('video-ai')" class="tag-chip px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700/60 transition" data-tag="video-ai">#видео</button>
+  </div>
+
+  <!-- Cards Container -->
+  <main class="max-w-3xl mx-auto px-4 py-4 space-y-4" id="cardsList">
+    <!-- Skeleton loader -->
+    <div class="animate-pulse space-y-4">
+      <div class="h-44 bg-slate-800/60 rounded-2xl"></div>
+      <div class="h-44 bg-slate-800/60 rounded-2xl"></div>
+      <div class="h-44 bg-slate-800/60 rounded-2xl"></div>
+    </div>
+  </main>
+
+  <!-- Pagination Controls -->
+  <div id="pagination" class="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between text-sm">
+    <button id="prevBtn" onclick="changePage(-1)" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 font-medium disabled:opacity-30 disabled:pointer-events-none transition active:scale-95">⬅️ Назад</button>
+    <span id="pageInfo" class="text-xs text-slate-400 font-medium">Страница 1 из 1</span>
+    <button id="nextBtn" onclick="changePage(1)" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 font-medium disabled:opacity-30 disabled:pointer-events-none transition active:scale-95">Вперед ➡️</button>
+  </div>
+
+  <!-- JS Logic -->
+  <script>
+    // Initialize Telegram WebApp
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
+
+    let state = {
+      hub: '',
+      category: '',
+      subcategory: '',
+      tag: '',
+      search: '',
+      page: 1,
+      limit: 10,
+      total: 0,
+      showOnlyFavorites: false,
+      favorites: JSON.parse(localStorage.getItem('kb_favorites') || '[]')
+    };
+
+    let allPostsData = Array.isArray(window.POSTS_DATA) ? window.POSTS_DATA : [];
+
+    updateFavCount();
+
+    function triggerHaptic(style = 'light') {
+      try {
+        tg?.HapticFeedback?.impactOccurred(style);
+      } catch (e) {}
+    }
+
+    function updateFavCount() {
+      const el = document.getElementById('favCount');
+      if (el) el.textContent = state.favorites.length;
+    }
+
+    function toggleFavorite(id) {
+      triggerHaptic('medium');
+      const idx = state.favorites.indexOf(id);
+      if (idx > -1) {
+        state.favorites.splice(idx, 1);
+      } else {
+        state.favorites.push(id);
+      }
+      localStorage.setItem('kb_favorites', JSON.stringify(state.favorites));
+      updateFavCount();
+      renderFilteredPosts();
+    }
+
+    function toggleFavoritesTab() {
+      triggerHaptic('selection');
+      state.showOnlyFavorites = !state.showOnlyFavorites;
+      state.page = 1;
+      const btn = document.getElementById('favTabBtn');
+      if (state.showOnlyFavorites) {
+        btn.classList.add('ring-2', 'ring-yellow-400');
+      } else {
+        btn.classList.remove('ring-2', 'ring-yellow-400');
+      }
+      renderFilteredPosts();
+    }
+
+    function setHub(hub) {
+      triggerHaptic('selection');
+      state.hub = hub;
+      state.category = '';
+      state.subcategory = '';
+      state.page = 1;
+      document.querySelectorAll('.hub-pill').forEach(btn => {
+        if (btn.getAttribute('data-hub') === hub) {
+          btn.className = 'hub-pill whitespace-nowrap px-3 py-1.5 rounded-lg bg-blue-600 text-white font-semibold transition active:scale-95';
+        } else {
+          btn.className = 'hub-pill whitespace-nowrap px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition active:scale-95';
+        }
+      });
+      renderCategoryPills();
+      renderSubcategoryChips();
+      renderFilteredPosts();
+    }
+
+    function setCategory(cat) {
+      triggerHaptic('selection');
+      state.category = (state.category === cat) ? '' : cat;
+      state.subcategory = '';
+      state.page = 1;
+      renderCategoryPills();
+      renderSubcategoryChips();
+      renderFilteredPosts();
+    }
+
+    function setSubcategory(subcat) {
+      triggerHaptic('selection');
+      state.subcategory = (state.subcategory === subcat) ? '' : subcat;
+      state.page = 1;
+      renderSubcategoryChips();
+      renderFilteredPosts();
+    }
+
+    function updateHubCounts() {
+      if (!allPostsData || !allPostsData.length) return;
+      const counts = { '': allPostsData.length, ai: 0, marketing: 0, business: 0, useful: 0 };
+      allPostsData.forEach(p => {
+        const h = p.level1_hub || 'business';
+        if (counts[h] !== undefined) counts[h]++;
+      });
+      document.querySelectorAll('.hub-pill').forEach(btn => {
+        const hub = btn.getAttribute('data-hub');
+        if (hub === '') btn.textContent = `Все (${counts['']})`;
+        else if (hub === 'ai') btn.textContent = `🤖 AI (${counts.ai})`;
+        else if (hub === 'marketing') btn.textContent = `📈 Маркетинг (${counts.marketing})`;
+        else if (hub === 'business') btn.textContent = `🛠 Бизнес (${counts.business})`;
+        else if (hub === 'useful') btn.textContent = `📌 Полезное (${counts.useful})`;
+      });
+    }
+
+    function renderCategoryPills() {
+      const container = document.getElementById('categoriesList');
+      if (!allPostsData.length) return;
+
+      const catCounts = {};
+      allPostsData.forEach(p => {
+        if (state.hub && p.level1_hub !== state.hub) return;
+        const cat = p.level2_category;
+        if (!cat) return;
+        catCounts[cat] = (catCounts[cat] || 0) + 1;
+      });
+
+      const categories = Object.keys(catCounts).sort((a, b) => catCounts[b] - catCounts[a]);
+
+      if (!categories.length) {
+        container.innerHTML = '';
+        return;
+      }
+
+      let html = `
+        <button onclick="setCategory('')" class="whitespace-nowrap px-2.5 py-1 rounded-md transition ${!state.category ? 'bg-blue-500/30 text-blue-300 border border-blue-500 font-semibold' : 'bg-slate-800/80 text-slate-400 border border-slate-700/60 hover:text-slate-200'}">
+          Все разделы
+        </button>
+      `;
+
+      html += categories.map(cat => {
+        const isSelected = state.category === cat;
+        const cls = isSelected 
+          ? 'whitespace-nowrap px-2.5 py-1 rounded-md bg-blue-500/30 text-blue-300 border border-blue-500 font-semibold transition' 
+          : 'whitespace-nowrap px-2.5 py-1 rounded-md bg-slate-800/80 text-slate-400 border border-slate-700/60 hover:text-slate-200 transition';
+        return `
+          <button onclick="setCategory('${escapeAttr(cat)}')" class="${cls}">
+            ${escapeHtml(cat)} (${catCounts[cat]})
+          </button>
+        `;
+      }).join('');
+
+      container.innerHTML = html;
+    }
+
+    function renderSubcategoryChips() {
+      const container = document.getElementById('subcategoriesList');
+      if (!state.category) {
+        container.classList.add('hidden');
+        container.innerHTML = '';
+        return;
+      }
+
+      const subCounts = {};
+      allPostsData.forEach(p => {
+        if (p.level2_category !== state.category) return;
+        const sub = p.level3_subcategory;
+        if (!sub) return;
+        subCounts[sub] = (subCounts[sub] || 0) + 1;
+      });
+
+      const subcategories = Object.keys(subCounts).sort((a, b) => subCounts[b] - subCounts[a]);
+      if (!subcategories.length) {
+        container.classList.add('hidden');
+        container.innerHTML = '';
+        return;
+      }
+
+      container.classList.remove('hidden');
+
+      let html = `
+        <button onclick="setSubcategory('')" class="whitespace-nowrap px-2.5 py-0.5 rounded-full transition text-[11px] ${!state.subcategory ? 'bg-sky-500/30 text-sky-200 border border-sky-400 font-semibold' : 'bg-slate-800 text-slate-400 border border-slate-700/70 hover:text-slate-200'}">
+          Все подразделы
+        </button>
+      `;
+
+      html += subcategories.map(sub => {
+        const isSelected = state.subcategory === sub;
+        const cls = isSelected
+          ? 'whitespace-nowrap px-2.5 py-0.5 rounded-full bg-sky-500/30 text-sky-200 border border-sky-400 font-semibold transition'
+          : 'whitespace-nowrap px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700/70 hover:text-slate-200 transition';
+        return `
+          <button onclick="setSubcategory('${escapeAttr(sub)}')" class="${cls}">
+            🏷 ${escapeHtml(sub)} (${subCounts[sub]})
+          </button>
+        `;
+      }).join('');
+
+      container.innerHTML = html;
+    }
+
+    function toggleTag(tag) {
+      triggerHaptic('selection');
+      state.tag = (state.tag === tag) ? '' : tag;
+      state.page = 1;
+      document.querySelectorAll('.tag-chip').forEach(btn => {
+        if (btn.getAttribute('data-tag') === state.tag) {
+          btn.className = 'tag-chip px-2.5 py-1 rounded-md bg-blue-600 text-white font-semibold border border-blue-500 transition';
+        } else {
+          btn.className = 'tag-chip px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700/60 transition';
+        }
+      });
+      renderFilteredPosts();
+    }
+
+    let searchTimeout = null;
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      const val = e.target.value.trim();
+      document.getElementById('clearSearch').classList.toggle('hidden', !val);
+      searchTimeout = setTimeout(() => {
+        state.search = val;
+        state.page = 1;
+        renderFilteredPosts();
+      }, 200);
+    });
+
+    function clearSearchInput() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('clearSearch').classList.add('hidden');
+      state.search = '';
+      state.page = 1;
+      renderFilteredPosts();
+    }
+
+    function changePage(delta) {
+      triggerHaptic('selection');
+      state.page += delta;
+      renderFilteredPosts();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderFilteredPosts() {
+      if (!allPostsData.length) {
+        loadPostsFromApi();
+        return;
+      }
+
+      let filtered = allPostsData;
+
+      if (state.showOnlyFavorites) {
+        filtered = filtered.filter(p => state.favorites.includes(p.id));
+      }
+
+      if (state.hub) {
+        filtered = filtered.filter(p => p.level1_hub === state.hub);
+      }
+
+      if (state.category) {
+        filtered = filtered.filter(p => p.level2_category === state.category);
+      }
+
+      if (state.subcategory) {
+        filtered = filtered.filter(p => p.level3_subcategory === state.subcategory);
+      }
+
+      if (state.tag) {
+        filtered = filtered.filter(p => {
+          return Array.isArray(p.tags) && p.tags.includes(state.tag);
+        });
+      }
+
+      if (state.search) {
+        const q = state.search.toLowerCase();
+        filtered = filtered.filter(p => {
+          const t = (p.card_title || '').toLowerCase();
+          const idea = (p.core_idea || '').toLowerCase();
+          const ins = (p.key_insight || '').toLowerCase();
+          const tools = Array.isArray(p.tools) ? p.tools.join(' ').toLowerCase() : '';
+          const author = (p.author_username || '').toLowerCase();
+          const cat = (p.level2_category || '').toLowerCase();
+          const subcat = (p.level3_subcategory || '').toLowerCase();
+          const coll = (p.user_collection || '').toLowerCase();
+          return t.includes(q) || idea.includes(q) || ins.includes(q) || tools.includes(q) || author.includes(q) || cat.includes(q) || subcat.includes(q) || coll.includes(q);
+        });
+      }
+
+      state.total = filtered.length;
+      document.getElementById('totalCount').textContent = `Доступно: ${state.total} отборных материалов`;
+
+      const start = (state.page - 1) * state.limit;
+      const pageItems = filtered.slice(start, start + state.limit);
+
+      renderCards(pageItems);
+      updatePagination(filtered.length, state.page, state.limit);
+    }
+
+    async function loadPostsFromApi() {
+      const container = document.getElementById('cardsList');
+      const staticData = window.POSTS_DATA || window.KB_DATA;
+      if (staticData && Array.isArray(staticData) && staticData.length > 0) {
+        allPostsData = staticData;
+        updateHubCounts();
+        renderCategoryPills();
+        renderSubcategoryChips();
+        renderFilteredPosts();
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="animate-pulse space-y-4">
+          <div class="h-44 bg-slate-800/60 rounded-2xl"></div>
+          <div class="h-44 bg-slate-800/60 rounded-2xl"></div>
+        </div>
+      `;
+
+      try {
+        const res = await fetch('posts.json');
+        const data = await res.json();
+        allPostsData = data;
+        updateHubCounts();
+        renderCategoryPills();
+        renderSubcategoryChips();
+        renderFilteredPosts();
+      } catch (err) {
+        console.error(err);
+        container.innerHTML = `
+          <div class="text-center py-12 text-slate-400">
+            <p class="text-3xl mb-2">⚠️</p>
+            <p class="text-sm font-medium">Не удалось загрузить данные.</p>
+            <button onclick="loadPostsFromApi()" class="mt-3 px-4 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold">Повторить</button>
+          </div>
+        `;
+      }
+    }
+
+    function renderCards(items) {
+      const container = document.getElementById('cardsList');
+      if (!items || !items.length) {
+        container.innerHTML = `
+          <div class="text-center py-16 text-slate-400">
+            <p class="text-4xl mb-3">🔍</p>
+            <p class="text-base font-semibold text-slate-200">Ничего не найдено</p>
+            <p class="text-xs text-slate-400 mt-1">Попробуйте изменить запрос или фильтры</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map(post => {
+        const isFav = state.favorites.includes(post.id);
+        const steps = Array.isArray(post.action_steps) ? post.action_steps : [];
+        const tools = Array.isArray(post.tools) ? post.tools : [];
+        const dateStr = post.date ? post.date.slice(0, 10) : '';
+        const colName = (post.user_collection || '').trim();
+        const catName = (post.level2_category || '').trim();
+        const subcatName = (post.level3_subcategory || '').trim();
+
+        return `
+          <article class="bg-slate-800/80 rounded-2xl p-4 border border-slate-700/60 shadow-lg hover:border-slate-600 transition">
+            <!-- Top bar -->
+            <div class="flex items-start justify-between gap-2 mb-2.5">
+              <div class="flex items-center flex-wrap gap-1.5">
+                ${catName ? `<span class="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-blue-900/60 text-blue-300 border border-blue-700/40">🏷 ${escapeHtml(catName)}</span>` : ''}
+                ${subcatName ? `<span class="text-[11px] px-2 py-0.5 rounded-md bg-slate-750 text-slate-300 border border-slate-700/80">↳ ${escapeHtml(subcatName)}</span>` : ''}
+                <span class="text-xs text-slate-400">@${escapeHtml(post.author_username || 'instagram')}</span>
+                ${dateStr ? `<span class="text-xs text-slate-400">• ${dateStr}</span>` : ''}
+              </div>
+              <button onclick="toggleFavorite(${post.id})" class="text-xl p-1 text-slate-400 hover:text-yellow-400 transition active:scale-125">
+                ${isFav ? '⭐️' : '☆'}
+              </button>
+            </div>
+
+            <!-- Title -->
+            <h2 class="text-base font-bold text-white mb-2 leading-snug">${escapeHtml(post.card_title || 'Без названия')}</h2>
+
+            <!-- Core Idea -->
+            <div class="mb-3 text-xs text-slate-300 leading-relaxed bg-slate-900/40 p-2.5 rounded-xl border border-slate-800/80">
+              <span class="font-bold text-blue-400">💡 Суть: </span>
+              ${escapeHtml(post.core_idea || '')}
+            </div>
+
+            <!-- Tools badges -->
+            ${tools.length ? `
+              <div class="flex items-center flex-wrap gap-1 mb-3">
+                <span class="text-[11px] text-slate-400 mr-1 font-medium">🛠</span>
+                ${tools.map(t => `<span class="text-[11px] px-2 py-0.5 rounded-md bg-slate-700/80 text-slate-200 border border-slate-600/50">${escapeHtml(t)}</span>`).join('')}
+              </div>
+            ` : ''}
+
+            <!-- Steps Accordion (Collapsible) -->
+            ${steps.length ? `
+              <div class="mb-3">
+                <button onclick="toggleAccordion('steps-${post.id}')" class="w-full flex items-center justify-between text-xs font-semibold py-1.5 px-3 rounded-lg bg-slate-700/40 hover:bg-slate-700/60 text-slate-200 transition">
+                  <span class="flex items-center space-x-1.5">
+                    <span>📋</span>
+                    <span>Пошаговый разбор (${steps.length} шагов)</span>
+                  </span>
+                  <span id="icon-steps-${post.id}" class="text-xs transition-transform duration-200">▼</span>
+                </button>
+                <div id="steps-${post.id}" class="hidden mt-2 p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-300 space-y-2">
+                  ${steps.map((s, i) => `
+                    <div class="flex items-start space-x-2">
+                      <span class="font-bold text-blue-400 shrink-0">${i + 1}.</span>
+                      <span class="leading-relaxed select-text">${escapeHtml(s)}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Key Insight -->
+            ${post.key_insight ? `
+              <div class="text-[11px] text-emerald-400/90 bg-emerald-950/20 border border-emerald-800/30 p-2 rounded-xl mb-3 flex items-start space-x-1.5">
+                <span class="shrink-0 text-sm">🎯</span>
+                <span class="leading-tight">${escapeHtml(post.key_insight)}</span>
+              </div>
+            ` : ''}
+
+            <!-- Bottom Action Row: Source Collection & Link -->
+            <div class="flex items-center justify-between pt-2 border-t border-slate-700/50 text-xs">
+              <span class="text-[11px] text-slate-400 flex items-center gap-1">
+                <span>📁</span>
+                <span>Взято из: <i class="text-slate-300">${escapeHtml(colName || 'Instagram')}</i></span>
+              </span>
+              ${post.url ? `
+                <a href="${post.url}" target="_blank" class="inline-flex items-center space-x-1 font-semibold text-blue-400 hover:text-blue-300 transition py-1 px-2.5 rounded-lg hover:bg-blue-950/40">
+                  <span>В Instagram</span>
+                  <span>↗</span>
+                </a>
+              ` : ''}
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function toggleAccordion(id) {
+      triggerHaptic('light');
+      const el = document.getElementById(id);
+      const icon = document.getElementById('icon-' + id);
+      if (el) {
+        el.classList.toggle('hidden');
+        if (icon) icon.classList.toggle('rotate-180');
+      }
+    }
+
+    function updatePagination(total, page, limit) {
+      const totalPages = Math.ceil(total / limit) || 1;
+      document.getElementById('pageInfo').textContent = `Стр. ${page} из ${totalPages}`;
+      document.getElementById('prevBtn').disabled = page <= 1;
+      document.getElementById('nextBtn').disabled = page >= totalPages;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeAttr(str) {
+      if (!str) return '';
+      return String(str).replace(/'/g, "\\'");
+    }
+
+    // Initial load
+    updateHubCounts();
+    renderCategoryPills();
+    renderFilteredPosts();
+  </script>
+</body>
+</html>
