@@ -364,18 +364,17 @@
   const chips = $('chips');
   function renderChips() {
     chips.replaceChildren();
-    const all = h('button', { class: 'chip', type: 'button', 'aria-pressed': String(!state.filter), onclick: () => setFilter(null) }, 'Все');
-    chips.append(all);
+    // Легенда слева: цвет линии, название и число материалов. Тап выделяет линию, повторный снимает.
+    chips.classList.toggle('filtered', !!state.filter);
     for (const [line, def] of Object.entries(MAP.lines)) {
-      const dot = h('span', { class: 'dot' });
-      dot.style.background = def.color;
+      const sw = h('span', { class: 'swatch' + (def.dashed ? ' dashed' : '') });
+      sw.style.setProperty('--c', def.color);
       chips.append(h('button', {
-        class: 'chip', type: 'button', 'aria-pressed': String(state.filter === line),
+        class: 'leg', type: 'button', 'aria-pressed': String(state.filter === line),
         'aria-label': `${def.full}: ${materials(lineCount(line))}`,
         onclick: () => setFilter(state.filter === line ? null : line)
-      }, dot, def.short));
+      }, sw, h('span', { class: 'leg-name', text: def.label }), h('span', { class: 'leg-count', text: String(lineCount(line)) })));
     }
-    chips.classList.toggle('overflow', chips.scrollWidth > chips.clientWidth + 1);
   }
   function setFilter(line) {
     haptic('select');
@@ -398,8 +397,7 @@
 
   function reservedBottom() {
     const tab = document.querySelector('.tabbar').getBoundingClientRect().height;
-    const ctr = document.querySelector('.controls').getBoundingClientRect().height;
-    return tab + ctr + 16;
+    return tab + 16;
   }
 
   function computeFit() {
@@ -411,7 +409,25 @@
     const k = Math.min((W - pad * 2) / box.width, (availH - pad * 2) / box.height);
     const x = (W - box.width * k) / 2 - box.x * k;
     const y = pad + (availH - pad * 2 - box.height * k) / 2 - box.y * k;
-    state.fit = { x, y, k };
+    state.fit = clearLegend({ x, y, k }, availH - pad);
+  }
+
+  // Сдвигает схему вниз (и при нужде уменьшает), чтобы легенда слева не закрывала станции.
+  function clearLegend(fit, bottomLimit) {
+    const leg = document.querySelector('.controls').getBoundingClientRect();
+    const vp = viewport.getBoundingClientRect();
+    const legRight = leg.right - vp.left + 8, legBottom = leg.bottom - vp.top + 8;
+    const boxes = [...stationsLayer.children].map((g) => g.getBBox());
+    const under = boxes.filter((b) => b.x * fit.k + fit.x < legRight);
+    if (!under.length) return fit;
+    const topY = Math.min(...under.map((b) => b.y));
+    const shift = legBottom - (topY * fit.k + fit.y);
+    if (shift <= 0) return fit;
+    const maxY = contentBox.y + contentBox.height;
+    let k = fit.k;
+    if (maxY * k + fit.y + shift > bottomLimit) k = (bottomLimit - legBottom) / (maxY - topY);
+    const x = fit.x + (fit.k - k) * (contentBox.x + contentBox.width / 2);
+    return { x, y: legBottom - topY * k, k };
   }
 
   function fitView(animate = true) {

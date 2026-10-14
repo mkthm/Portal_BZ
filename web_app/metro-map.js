@@ -5,11 +5,12 @@ window.METRO_MAP = {
   viewBox: { w: 360, h: 670 },
 
   lines: {
-    ai:    { short: 'ИИ',      full: 'Нейросети и ИИ',     color: '#06B6D4' },
-    mkt:   { short: 'Трафик',  full: 'Маркетинг и трафик', color: '#A855F7' },
-    biz:   { short: 'Бизнес',  full: 'Бизнес и управление', color: '#10B981' },
-    tools: { short: 'Платежи', full: 'Сервисы и оплаты',   color: '#F59E0B', dashed: true },
-    mp:    { short: 'WB/Ozon', full: 'Маркетплейсы WB и Ozon', color: '#F43F5E' }
+    // label: подпись в легенде слева; short: в бейджах шторки и маршруте.
+    ai:    { short: 'ИИ',      label: 'Нейросети',    full: 'Нейросети и ИИ',     color: '#06B6D4' },
+    mkt:   { short: 'Трафик',  label: 'Маркетинг',    full: 'Маркетинг и трафик', color: '#A855F7' },
+    biz:   { short: 'Бизнес',  label: 'Бизнес',       full: 'Бизнес и управление', color: '#10B981' },
+    tools: { short: 'Платежи', label: 'Сервисы',      full: 'Сервисы и оплаты',   color: '#F59E0B', dashed: true },
+    mp:    { short: 'WB/Ozon', label: 'Маркетплейсы', full: 'Маркетплейсы WB и Ozon', color: '#F43F5E' }
   },
 
   // Порядок точек вдоль линии: id станции или угол [x, y].

@@ -193,46 +193,34 @@ button { cursor: pointer; }
 
 .controls {
   position: absolute;
-  left: 0; right: 0;
-  bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 10px);
-  display: flex; align-items: center; gap: 8px;
-  padding: 0 8px;
+  top: 8px; left: calc(8px + env(safe-area-inset-left, 0px));
   z-index: 4;
-  pointer-events: none;
 }
-.chips {
-  flex: 1; min-width: 0;
-  display: flex; gap: 2px;
-  overflow-x: auto; scrollbar-width: none;
+.legend {
+  display: flex; flex-direction: column; gap: 1px;
   padding: 4px;
-  border-radius: 999px;
+  border-radius: 14px;
   background: rgba(17, 24, 39, 0.82);
   border: 1px solid var(--border);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  pointer-events: auto;
 }
-.chips.overflow {
-  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
-  mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
-}
-.chips.overflow::after { content: ""; flex: none; width: 16px; }
-.chips::-webkit-scrollbar { display: none; }
-
-.chip {
-  flex: none;
-  height: 44px; padding: 0 8px;
-  display: inline-flex; align-items: center; gap: 5px;
-  border-radius: 999px;
-  border: 0;
+.leg {
+  height: 34px; padding: 0 8px;
+  display: grid; grid-template-columns: 16px auto auto; align-items: center; column-gap: 8px;
+  border-radius: 10px; border: 0;
   background: transparent;
-  color: var(--text-muted);
-  font-size: 12.5px; font-weight: 600;
+  color: var(--text-station);
+  font-size: 12px; font-weight: 600; text-align: left;
   white-space: nowrap;
-  transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out);
+  position: relative;
+  transition: background-color 150ms var(--ease-out), opacity 150ms var(--ease-out);
 }
-.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
-.chip[aria-pressed="true"] { background: var(--text); color: var(--bg-canvas); }
+.swatch { width: 16px; height: 5px; border-radius: 3px; background: var(--c); }
+.swatch.dashed { background: repeating-linear-gradient(90deg, var(--c) 0 5px, transparent 5px 8px); height: 4px; }
+.leg-count { color: var(--text-muted); font-size: 11px; font-variant-numeric: tabular-nums; justify-self: end; }
+.legend.filtered .leg { opacity: 0.45; }
+.legend.filtered .leg[aria-pressed="true"] { opacity: 1; background: var(--bg-raised); color: var(--text); }
 
 /* ---------- Tab bar ---------- */
 
