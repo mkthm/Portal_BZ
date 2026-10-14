@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#080C14">
+  <title>Метро связок · Portal BZ</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="metro.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="header">
+      <div class="brand">
+        <svg class="brand-mark" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+          <path d="M3 9h10l6 6h6" fill="none" stroke="#06B6D4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 19h6l6-6" fill="none" stroke="#A855F7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="16" cy="12" r="4" fill="#080C14" stroke="#FFFFFF" stroke-width="2"/>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">Portal_BZ</span>
+          <span class="brand-meta" id="totalMeta">Загружаю схему…</span>
+        </div>
+      </div>
+      <button class="icon-btn" id="searchBtn" type="button" aria-label="Поиск по схеме" aria-pressed="false" aria-controls="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn" id="routeBtn" type="button" aria-pressed="false" aria-label="Проложить маршрут" title="Проложить маршрут">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19H15a3.5 3.5 0 0 0 0-7H9a3.5 3.5 0 0 1 0-7h6.5"/></svg>
+      </button>
+      <button class="icon-btn" id="fitBtn" type="button" aria-label="Сбросить вид">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+      </button>
+
+      <div class="search" id="search" hidden>
+        <label class="search-field">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <span class="sr-only">Станция или тема</span>
+          <input id="searchInput" type="search" placeholder="Станция или тема: Ozon, n8n, VPN" autocomplete="off">
+        </label>
+        <ul class="search-results" id="searchResults" aria-live="polite"></ul>
+      </div>
+    </header>
+
+    <main class="viewport" id="viewport" aria-label="Схема связок">
+      <svg class="map" id="map" role="group" aria-label="Схема метро: четыре линии и пять пересадок" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+            <circle cx="12" cy="12" r="1" fill="#F8FAFC" opacity="0.08"/>
+          </pattern>
+        </defs>
+        <rect id="gridBg" x="-2000" y="-2000" width="4400" height="4600" fill="url(#dots)"/>
+        <g class="map-world" id="world">
+          <g id="linesLayer"></g>
+          <g id="glintLayer" aria-hidden="true"></g>
+          <g id="routeLayer" aria-hidden="true"></g>
+          <g id="stationsLayer"></g>
+        </g>
+      </svg>
+
+      <div class="state" id="loadState">Загружаю материалы…</div>
+      <div class="state" id="errorState" hidden>
+        <div>
+          <p>Не получилось загрузить материалы. Проверьте интернет и попробуйте ещё раз.</p>
+          <button type="button" id="retryBtn">Повторить</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="chips" id="chips" role="group" aria-label="Фильтр линий"></div>
+      </div>
+    </main>
+
+    <nav class="tabbar" aria-label="Разделы">
+      <a class="tab" href="metro.html" aria-current="page">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h8l6 6h4"/><path d="M3 17h5l5-5"/><circle cx="13" cy="10" r="2.5"/></svg>
+        Схема
+      </a>
+      <a class="tab" href="index.html">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Каталог
+      </a>
+      <button class="tab" type="button" id="favTab">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+        Избранное
+      </button>
+    </nav>
+
+    <section class="sheet" id="sheet" role="dialog" aria-modal="false" aria-labelledby="sheetTitle" aria-hidden="true" inert>
+      <div class="sheet-grab" id="sheetGrab">
+        <button class="handle-btn" id="handleBtn" type="button" aria-label="Развернуть или свернуть шторку"><span class="handle"></span></button>
+        <div class="sheet-head">
+          <div class="sheet-head-text">
+            <div class="badges" id="sheetBadges"></div>
+            <h2 class="sheet-title" id="sheetTitle"></h2>
+          </div>
+          <button class="close-btn" id="closeBtn" type="button" aria-label="Закрыть">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="sheet-body" id="sheetBody"></div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="metro-map.js"></script>
+  <script src="metro.js"></script>
+</body>
+</html>

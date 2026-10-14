@@ -1,0 +1,505 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-14T00:00:00Z",
+  "title": "Design System: Portal BZ — Метро связок",
+  "extensions": {
+    "colorMeta": {
+      "line-ai": {
+        "role": "primary",
+        "displayName": "Бирюзовая линия ИИ",
+        "canonical": "oklch(71.5% 0.126 215.2)",
+        "tonalRamp": [
+          "oklch(15% 0.044 215.2)",
+          "oklch(25% 0.076 215.2)",
+          "oklch(35% 0.107 215.2)",
+          "oklch(45% 0.126 215.2)",
+          "oklch(55% 0.126 215.2)",
+          "oklch(65% 0.126 215.2)",
+          "oklch(80% 0.088 215.2)",
+          "oklch(95% 0.032 215.2)"
+        ]
+      },
+      "line-mkt": {
+        "role": "primary",
+        "displayName": "Фиолетовая линия Трафика",
+        "canonical": "oklch(62.7% 0.233 303.9)",
+        "tonalRamp": [
+          "oklch(15% 0.082 303.9)",
+          "oklch(25% 0.140 303.9)",
+          "oklch(35% 0.198 303.9)",
+          "oklch(45% 0.233 303.9)",
+          "oklch(55% 0.233 303.9)",
+          "oklch(65% 0.233 303.9)",
+          "oklch(80% 0.163 303.9)",
+          "oklch(95% 0.058 303.9)"
+        ]
+      },
+      "line-biz": {
+        "role": "primary",
+        "displayName": "Изумрудная линия Бизнеса",
+        "canonical": "oklch(69.6% 0.149 162.5)",
+        "tonalRamp": [
+          "oklch(15% 0.052 162.5)",
+          "oklch(25% 0.089 162.5)",
+          "oklch(35% 0.127 162.5)",
+          "oklch(45% 0.149 162.5)",
+          "oklch(55% 0.149 162.5)",
+          "oklch(65% 0.149 162.5)",
+          "oklch(80% 0.104 162.5)",
+          "oklch(95% 0.037 162.5)"
+        ]
+      },
+      "line-tools": {
+        "role": "primary",
+        "displayName": "Янтарная линия Платежей",
+        "canonical": "oklch(76.9% 0.165 70.1)",
+        "tonalRamp": [
+          "oklch(15% 0.058 70.1)",
+          "oklch(25% 0.099 70.1)",
+          "oklch(35% 0.140 70.1)",
+          "oklch(45% 0.165 70.1)",
+          "oklch(55% 0.165 70.1)",
+          "oklch(65% 0.165 70.1)",
+          "oklch(80% 0.115 70.1)",
+          "oklch(95% 0.041 70.1)"
+        ]
+      },
+      "focus": {
+        "role": "secondary",
+        "displayName": "Небесный фокус",
+        "canonical": "oklch(75.4% 0.139 232.7)",
+        "tonalRamp": [
+          "oklch(15% 0.049 232.7)",
+          "oklch(25% 0.083 232.7)",
+          "oklch(35% 0.118 232.7)",
+          "oklch(45% 0.139 232.7)",
+          "oklch(55% 0.139 232.7)",
+          "oklch(65% 0.139 232.7)",
+          "oklch(80% 0.097 232.7)",
+          "oklch(95% 0.035 232.7)"
+        ]
+      },
+      "signal-white": {
+        "role": "secondary",
+        "displayName": "Сигнальный белый",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0)",
+          "oklch(25% 0.000 0)",
+          "oklch(35% 0.000 0)",
+          "oklch(45% 0.000 0)",
+          "oklch(55% 0.000 0)",
+          "oklch(65% 0.000 0)",
+          "oklch(80% 0.000 0)",
+          "oklch(95% 0.000 0)"
+        ]
+      },
+      "bg-canvas": {
+        "role": "neutral",
+        "displayName": "Ночное полотно",
+        "canonical": "oklch(15.4% 0.019 263.2)",
+        "tonalRamp": [
+          "oklch(15% 0.019 263.2)",
+          "oklch(25% 0.019 263.2)",
+          "oklch(35% 0.019 263.2)",
+          "oklch(45% 0.019 263.2)",
+          "oklch(55% 0.019 263.2)",
+          "oklch(65% 0.019 263.2)",
+          "oklch(80% 0.019 263.2)",
+          "oklch(95% 0.019 263.2)"
+        ]
+      },
+      "bg-surface": {
+        "role": "neutral",
+        "displayName": "Тёмная поверхность",
+        "canonical": "oklch(21.0% 0.032 264.7)",
+        "tonalRamp": [
+          "oklch(15% 0.032 264.7)",
+          "oklch(25% 0.032 264.7)",
+          "oklch(35% 0.032 264.7)",
+          "oklch(45% 0.032 264.7)",
+          "oklch(55% 0.032 264.7)",
+          "oklch(65% 0.032 264.7)",
+          "oklch(80% 0.032 264.7)",
+          "oklch(95% 0.032 264.7)"
+        ]
+      },
+      "bg-raised": {
+        "role": "neutral",
+        "displayName": "Приподнятый слой",
+        "canonical": "oklch(24.5% 0.039 264.4)",
+        "tonalRamp": [
+          "oklch(15% 0.039 264.4)",
+          "oklch(25% 0.039 264.4)",
+          "oklch(35% 0.039 264.4)",
+          "oklch(45% 0.039 264.4)",
+          "oklch(55% 0.039 264.4)",
+          "oklch(65% 0.039 264.4)",
+          "oklch(80% 0.039 264.4)",
+          "oklch(95% 0.039 264.4)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Тонкая рамка",
+        "canonical": "oklch(27.8% 0.030 256.8)",
+        "tonalRamp": [
+          "oklch(15% 0.030 256.8)",
+          "oklch(25% 0.030 256.8)",
+          "oklch(35% 0.030 256.8)",
+          "oklch(45% 0.030 256.8)",
+          "oklch(55% 0.030 256.8)",
+          "oklch(65% 0.030 256.8)",
+          "oklch(80% 0.030 256.8)",
+          "oklch(95% 0.030 256.8)"
+        ]
+      },
+      "border-strong": {
+        "role": "neutral",
+        "displayName": "Сильная рамка",
+        "canonical": "oklch(37.2% 0.039 257.3)",
+        "tonalRamp": [
+          "oklch(15% 0.039 257.3)",
+          "oklch(25% 0.039 257.3)",
+          "oklch(35% 0.039 257.3)",
+          "oklch(45% 0.039 257.3)",
+          "oklch(55% 0.039 257.3)",
+          "oklch(65% 0.039 257.3)",
+          "oklch(80% 0.039 257.3)",
+          "oklch(95% 0.039 257.3)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Почти белый текст",
+        "canonical": "oklch(98.4% 0.003 247.9)",
+        "tonalRamp": [
+          "oklch(15% 0.003 247.9)",
+          "oklch(25% 0.003 247.9)",
+          "oklch(35% 0.003 247.9)",
+          "oklch(45% 0.003 247.9)",
+          "oklch(55% 0.003 247.9)",
+          "oklch(65% 0.003 247.9)",
+          "oklch(80% 0.003 247.9)",
+          "oklch(95% 0.003 247.9)"
+        ]
+      },
+      "text-station": {
+        "role": "neutral",
+        "displayName": "Текст станций",
+        "canonical": "oklch(92.9% 0.013 255.5)",
+        "tonalRamp": [
+          "oklch(15% 0.013 255.5)",
+          "oklch(25% 0.013 255.5)",
+          "oklch(35% 0.013 255.5)",
+          "oklch(45% 0.013 255.5)",
+          "oklch(55% 0.013 255.5)",
+          "oklch(65% 0.013 255.5)",
+          "oklch(80% 0.013 255.5)",
+          "oklch(95% 0.013 255.5)"
+        ]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Приглушённый текст",
+        "canonical": "oklch(71.1% 0.035 256.8)",
+        "tonalRamp": [
+          "oklch(15% 0.035 256.8)",
+          "oklch(25% 0.035 256.8)",
+          "oklch(35% 0.035 256.8)",
+          "oklch(45% 0.035 256.8)",
+          "oklch(55% 0.035 256.8)",
+          "oklch(65% 0.035 256.8)",
+          "oklch(80% 0.035 256.8)",
+          "oklch(95% 0.035 256.8)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Заголовок шторки и название в шапке."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Заголовок карточки материала."
+      },
+      "label-strong": {
+        "displayName": "Label strong",
+        "purpose": "Название шага маршрута, главная кнопка, результаты поиска."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Описание узла, шаги разбора, кнопки внутри карточки."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Подписи полей, мета карточки и шапки, фильтр линий."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Вкладки таб-бара, теги инструментов, мета мини-карточки."
+      },
+      "map-interchange": {
+        "displayName": "Map interchange",
+        "purpose": "Белые подписи пересадок на схеме, в единицах схемы."
+      },
+      "map-station": {
+        "displayName": "Map station",
+        "purpose": "Подписи станций на схеме с обводкой цвета полотна 3 px."
+      }
+    },
+    "shadows": [
+      {
+        "name": "popover",
+        "value": "0 12px 32px rgba(2, 6, 14, 0.6)",
+        "purpose": "Всплывающая панель поиска под шапкой."
+      },
+      {
+        "name": "sheet",
+        "value": "0 -12px 40px rgba(2, 6, 14, 0.55)",
+        "purpose": "Нижняя шторка над картой."
+      },
+      {
+        "name": "interchange-glow",
+        "value": "drop-shadow(0 0 8px rgba(255, 255, 255, 0.25))",
+        "purpose": "Ореол кольца пересадки на схеме (filter)."
+      },
+      {
+        "name": "frosted-filter",
+        "value": "backdrop-filter: blur(12px) on rgba(17, 24, 39, 0.82)",
+        "purpose": "Матовая капсула фильтра линий над картой."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Единственная кривая для всех переходов."
+      },
+      {
+        "name": "press",
+        "value": "150ms",
+        "purpose": "Фон и цвет кнопок и фильтров."
+      },
+      {
+        "name": "toast",
+        "value": "200ms",
+        "purpose": "Появление тоста (прозрачность и сдвиг 8 px)."
+      },
+      {
+        "name": "sheet-and-dim",
+        "value": "300ms",
+        "purpose": "Выезд шторки и затемнение линий и станций до 0.15."
+      },
+      {
+        "name": "camera",
+        "value": "420ms",
+        "purpose": "Плавный переезд камеры к станции и сброс вида."
+      },
+      {
+        "name": "ping",
+        "value": "1.6s infinite, scale 1→1.5, opacity 0.8→0",
+        "purpose": "Пульс вокруг выбранной станции."
+      },
+      {
+        "name": "glint",
+        "value": "5.5s infinite, dash 40, stagger 1.3s per line",
+        "purpose": "Бегущий белый блик по линиям."
+      },
+      {
+        "name": "route-march",
+        "value": "900ms linear infinite, dash 6 8, offset -28",
+        "purpose": "Бегущий пунктир маршрута."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Переходы мгновенные, блик и пульс не рисуются, пунктир маршрута стоит."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-min",
+        "value": "360px"
+      },
+      {
+        "name": "phone-max",
+        "value": "430px"
+      }
+    ],
+    "map": {
+      "dotGrid": "24px step, r=1, #F8FAFC at 0.08",
+      "fitPadding": "24px",
+      "lineStroke": {
+        "solid": 6,
+        "dashed": 4,
+        "dashArray": "8 6",
+        "cornerRadius": 14
+      },
+      "station": {
+        "r": 5,
+        "stroke": 3,
+        "fill": "bg-canvas",
+        "hitRadius": 22
+      },
+      "interchange": {
+        "r": 12,
+        "ringStroke": 3,
+        "ring": "#FFFFFF",
+        "innerDots": "5 / 2.5 (two lines), 7.5 / 5 / 2.5 (three lines)"
+      },
+      "dimOpacity": 0.15,
+      "sheetLevels": {
+        "half": "40%",
+        "full": "85%"
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Icon Button",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "Кнопка шапки 44×44: поиск, маршрут, сбросить вид.",
+      "html": "<button class=\"ds-icon-btn\" type=\"button\" aria-label=\"Поиск по схеме\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-3.5-3.5\"/></svg></button> <button class=\"ds-icon-btn\" type=\"button\" aria-pressed=\"true\" aria-label=\"Проложить маршрут\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-3.5-3.5\"/></svg></button>",
+      "css": ".ds-icon-btn{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,'Segoe UI',system-ui,sans-serif;width:44px;height:44px;display:inline-grid;place-items:center;border-radius:12px;border:1px solid var(--border, #1F2937);background:var(--bg-surface, #111827);color:var(--text, #F8FAFC);cursor:pointer;transition:background-color 150ms cubic-bezier(0.16, 1, 0.3, 1);}.ds-icon-btn:hover,.ds-icon-btn:active{background:var(--bg-raised, #172033);}.ds-icon-btn[aria-pressed=\"true\"]{border-color:var(--border-strong, #334155);background:var(--bg-raised, #172033);}.ds-icon-btn:focus-visible{outline:2px solid var(--focus, #38BDF8);outline-offset:2px;}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Главное действие в шторке: почти белая плашка на всю ширину.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Сохранить всё</button> <button class=\"ds-btn-primary\" type=\"button\" data-done=\"true\">Сохранено</button>",
+      "css": ".ds-btn-primary{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,'Segoe UI',system-ui,sans-serif;width:100%;height:48px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;border:0;background:var(--text, #F8FAFC);color:var(--bg-canvas, #080C14);font-size:14px;font-weight:700;cursor:pointer;}.ds-btn-primary[data-done=\"true\"]{background:var(--bg-raised, #172033);color:var(--text, #F8FAFC);}.ds-btn-primary:focus-visible{outline:2px solid var(--focus, #38BDF8);outline-offset:2px;}"
+    },
+    {
+      "name": "Card Actions",
+      "kind": "button",
+      "refersTo": "button-open",
+      "description": "Ряд действий карточки: «Открыть» на приподнятом слое и квадратная закладка.",
+      "html": "<div class=\"ds-actions\"><a class=\"ds-open\" href=\"#\">Открыть</a><button class=\"ds-save\" type=\"button\" aria-pressed=\"true\" aria-label=\"Сохранить\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 3h12v18l-6-4-6 4z\"/></svg></button></div>",
+      "css": ".ds-actions{display:flex;gap:8px;width:320px;}.ds-open{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,'Segoe UI',system-ui,sans-serif;flex:1;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;background:var(--bg-raised, #172033);color:var(--text, #F8FAFC);text-decoration:none;font-size:13px;font-weight:600;}.ds-save{width:44px;height:44px;display:grid;place-items:center;border-radius:10px;border:0;background:var(--bg-raised, #172033);color:var(--text-muted, #94A3B8);cursor:pointer;}.ds-save[aria-pressed=\"true\"]{color:var(--line-tools, #F59E0B);}.ds-open:focus-visible{outline:2px solid var(--focus, #38BDF8);outline-offset:2px;}.ds-save:focus-visible{outline:2px solid var(--focus, #38BDF8);outline-offset:2px;}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Вторичное действие: «Показать все».",
+      "html": "<button class=\"ds-btn-outline\" type=\"button\">Показать все 24 материала</button>",
+      "css": ".ds-btn-outline{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,'Segoe UI',system-ui,sans-serif;width:320px;height:44px;border-radius:12px;border:1px solid var(--border, #1F2937);background:transparent;color:var(--text-station, #E2E8F0);font-size:13px;font-weight:600;cursor:pointer;}.ds-btn-outline:hover{background:var(--bg-raised, #172033);}.ds-btn-outline:focus-visible{outline:2px solid var(--focus, #38BDF8);outline-offset:2px;}"
+    },
+    {
+      "name": "Line Filter",
+      "kind": "chip",
+      "refersTo": "line-chip",
+      "description": "Матовая капсула над картой с фильтрами линий.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">Все</button><button class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-dot\" style=\"background:#06B6D4\"></span>ИИ</button><button class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-dot\" style=\"background:#A855F7\"></span>Трафик</button><button class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-dot\" style=\"background:#10B981\"></span>Бизнес</button><button class=\"ds-chip\" aria-pressed=\"false\"><span class=\"ds-dot\" style=\"background:#F59E0B\"></span>Платежи</button></div>",
+      "css": ".ds-chips{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:rgba(17,24,39,0.82);border:1px solid var(--border, #1F2937);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}.ds-chip{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,'Segoe UI',system-ui,sans-serif;height:44px;padding:0 8px;display:inline-flex;align-items:center;gap:5px;border-radius:999px;border:0;background:transparent;color:var(--text-muted, #94A3B8);font-size:12.5px;font-weight:600;white-space:nowrap;cursor:pointer;transition:background-color 150ms cubic-bezier(0.16, 1, 0.3, 1),color 150ms cubic-bezier(0.16, 1, 0.3, 1);}.ds-chip:hover{color:var(--text, #F8FAFC);}.ds-chip[aria-pressed=\"true\"]{background:var(--text, #F8FAFC);color:var(--bg-canvas, #080C14);}.ds-dot{width:8px;height:8px;border-radius:50%;}.ds-chip:focus-visible{outline:2px solid var(--focus, #38BDF8);outline-offset:2px;}"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Поле поиска внутри всплывающей панели.",
+      "html": "<div class=\"ds-search\"><label class=\"ds-field\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-3.5-3.5\"/></svg><input type=\"search\" placeholder=\"Станция или тема: Ozon, n8n, VPN\"></label></div>",
+      "css": ".ds-search{width:320px;padding:8px;border-radius:14px;background:var(--bg-surface, #111827);border:1px solid var(--border, #1F2937);box-shadow:0 12px 32px rgba(2,6,14,0.6);}.ds-field{display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;border-radius:10px;background:var(--bg-canvas, #080C14);border:1px solid var(--border, #1F2937);color:var(--text-muted, #94A3B8);}.ds-field:focus-within{outline:2px solid var(--focus, #38BDF8);outline-offset:2px;}.ds-field input{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,'Segoe UI',system-ui,sans-serif;flex:1;min-width:0;border:0;outline:none;background:transparent;color:var(--text, #F8FAFC);font-size:15px;}.ds-field input::placeholder{color:var(--text-muted, #94A3B8);}"
+    },
+    {
+      "name": "Material Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Карточка материала в шторке: утоплена на тон полотна, рамка 1 px.",
+      "html": "<article class=\"ds-card\"><h3 class=\"ds-card-title\">Как оплатить Claude из России</h3><div class=\"ds-card-meta\">@author · 12.03.2025</div><div class=\"ds-tags\"><span class=\"ds-tag\">Claude</span><span class=\"ds-tag\">P2P</span></div><ol class=\"ds-steps\"><li>Открыть кабинет сервиса</li><li>Выбрать способ оплаты</li></ol></article>",
+      "css": ".ds-card{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,'Segoe UI',system-ui,sans-serif;width:320px;padding:14px;border-radius:14px;border:1px solid var(--border, #1F2937);background:var(--bg-canvas, #080C14);color:var(--text, #F8FAFC);}.ds-card-title{margin:0 0 4px;font-size:15px;line-height:20px;font-weight:600;}.ds-card-meta{font-size:12px;color:var(--text-muted, #94A3B8);margin-bottom:10px;}.ds-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}.ds-tag{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--bg-raised, #172033);color:var(--text-station, #E2E8F0);}.ds-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;counter-reset:s;}.ds-steps li{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:13px;line-height:18px;color:var(--text-station, #E2E8F0);counter-increment:s;}.ds-steps li::before{content:counter(s);width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:var(--bg-raised, #172033);font-size:11px;font-weight:700;color:var(--text, #F8FAFC);font-variant-numeric:tabular-nums;}"
+    },
+    {
+      "name": "Tab Bar",
+      "kind": "nav",
+      "refersTo": "tabbar",
+      "description": "Нижняя навигация на три раздела.",
+      "html": "<nav class=\"ds-tabbar\"><a class=\"ds-tab\" href=\"#\" aria-current=\"page\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7h8l6 6h4\"/><path d=\"M3 17h5l5-5\"/><circle cx=\"13\" cy=\"10\" r=\"2.5\"/></svg>Схема</a><a class=\"ds-tab\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 6h16M4 12h16M4 18h10\"/></svg>Каталог</a><a class=\"ds-tab\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M6 3h12v18l-6-4-6 4z\"/></svg>Избранное</a></nav>",
+      "css": ".ds-tabbar{width:360px;height:64px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:var(--bg-surface, #111827);border-top:1px solid var(--border, #1F2937);}.ds-tab{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--text-muted, #94A3B8);text-decoration:none;font-size:11px;font-weight:600;}.ds-tab:hover,.ds-tab[aria-current=\"page\"]{color:var(--text, #F8FAFC);}.ds-tab:focus-visible{outline:2px solid var(--focus, #38BDF8);outline-offset:2px;}"
+    },
+    {
+      "name": "Interchange Node",
+      "kind": "custom",
+      "description": "Подпись схемы: обычная станция и узел пересадки с белым кольцом, концентрическими точками линий и пульсом.",
+      "html": "<svg class=\"ds-map\" width=\"240\" height=\"120\" viewBox=\"0 0 240 120\"><path d=\"M20 60H220\" stroke=\"#06B6D4\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M140 10V110\" stroke=\"#F59E0B\" stroke-width=\"4\" stroke-dasharray=\"8 6\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"60\" cy=\"60\" r=\"5\" fill=\"#080C14\" stroke=\"#06B6D4\" stroke-width=\"3\"/><text class=\"ds-st\" x=\"60\" y=\"44\" text-anchor=\"middle\">Промпты</text><circle class=\"ds-ping\" cx=\"140\" cy=\"60\" r=\"12\"/><g class=\"ds-ring\"><circle cx=\"140\" cy=\"60\" r=\"12\" fill=\"#080C14\" stroke=\"#FFFFFF\" stroke-width=\"3\"/><circle cx=\"140\" cy=\"60\" r=\"5\" fill=\"#06B6D4\"/><circle cx=\"140\" cy=\"60\" r=\"2.5\" fill=\"#F59E0B\" stroke=\"#080C14\" stroke-width=\"1\"/></g><text class=\"ds-st ds-x\" x=\"157\" y=\"48\">Оплата ИИ</text></svg>",
+      "css": ".ds-map{background:var(--bg-canvas, #080C14);border-radius:14px;}.ds-st{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,'Segoe UI',system-ui,sans-serif;font-size:10px;font-weight:600;fill:var(--text-station, #E2E8F0);paint-order:stroke;stroke:var(--bg-canvas, #080C14);stroke-width:3px;stroke-linejoin:round;}.ds-st.ds-x{font-size:12px;font-weight:700;fill:#FFFFFF;letter-spacing:-0.2px;}.ds-ring{filter:drop-shadow(0 0 8px rgba(255,255,255,0.25));}.ds-ping{fill:none;stroke:#FFFFFF;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:ds-ping 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;}@keyframes ds-ping{from{transform:scale(1);opacity:.8}to{transform:scale(1.5);opacity:0}}@media (prefers-reduced-motion: reduce){.ds-ping{display:none;}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Ночная схема метро",
+    "overview": "База материалов показана как схема метро в духе Гарри Бека: четыре цветные линии на почти чёрном полотне с точечной сеткой 24 px, станции-кружки и белые узлы пересадок. Схема и есть навигация, а не украшение вокруг списка. Всё, что не карта (шапка, фильтр линий, шторка, таб-бар), сделано спокойными тёмно-синими плоскостями с тонкой рамкой 1 px, чтобы не спорить с цветом линий.\n\nПлотность мобильная: экран 360–430 px, одна рука, все цели касания не меньше 44 px. Шрифт системный (SF Pro / Inter), цифры везде табличные, чтобы счётчики материалов стояли ровно. Движение мягкое и короткое, на одной кривой ease-out; карта «живёт» за счёт бегущего блика по линиям и пульсирующего кольца у выбранной станции, а при `prefers-reduced-motion` всё это выключается.\n\nТема только тёмная. Светлой версии нет: тёмная тема зафиксирована в ТЗ.",
+    "keyCharacteristics": [
+      "Карта на всю высоту, интерфейс плавает поверх неё.",
+      "Цвет несут только линии; интерфейс нейтральный.",
+      "Белый — сигнал «здесь главное»: пересадки, маршрут, активный фильтр, главная кнопка.",
+      "Глубина тоном (полотно → поверхность → приподнятый слой), тени только у того, что парит над картой.",
+      "Одна кривая движения на всё, уважение к reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Line Is Identity Rule",
+        "body": "Цвет линии означает принадлежность к линии: обводка, точка, бейдж, кружок шага. Кнопки, рамки и фоны интерфейса никогда не красятся в цвет линии. Два зафиксированных в коде исключения — изумрудная метка «есть разбор» и янтарная закладка «сохранено»; новых исключений не добавлять.",
+        "section": "colors"
+      },
+      {
+        "name": "The White Means Here Rule",
+        "body": "Самый светлый тон на экране — это узел пересадки, маршрут или активное действие. Обычные станции — кружок цвета полотна с цветной обводкой, никогда не белые.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Count Rule",
+        "body": "Любое число-счётчик (материалы, шаги, уроки) набирается `font-variant-numeric: tabular-nums`.",
+        "section": "typography"
+      },
+      {
+        "name": "The Weight Not Face Rule",
+        "body": "Новая ступень иерархии делается весом и размером системного шрифта; вторую гарнитуру не вводить.",
+        "section": "typography"
+      },
+      {
+        "name": "The 44 Rule",
+        "body": "Всё, на что нажимают, — не меньше 44×44 px: кнопки шапки, фильтры, кнопки в карточках, поля выбора. На карте у станции невидимая зона касания радиусом 22.",
+        "section": "layout"
+      },
+      {
+        "name": "The Tone Before Shadow Rule",
+        "body": "Карточки, кнопки и поля не получают теней; их отделяет тон и рамка 1 px. Тень разрешена только плавающему слою над картой.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Dim To Fifteen Rule",
+        "body": "Когда выбран узел, фильтр или маршрут, всё лишнее на схеме уходит в прозрачность 0.15 за 300 ms, а не прячется.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Curve Rule",
+        "body": "Все переходы идут на `cubic-bezier(0.16, 1, 0.3, 1)`: 150 ms нажатие, 200 ms тост, 300 ms шторка и затемнение, 420 ms камера. Линейной бывает только бегущая анимация маршрута.",
+        "section": "components"
+      },
+      {
+        "name": "The Still When Asked Rule",
+        "body": "При `prefers-reduced-motion: reduce` камера, шторка и затемнение переключаются без анимации, блик и пульс не рисуются, пунктир маршрута стоит.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "**Do** держать цвет линий только на элементах, принадлежащих линии (The Line Is Identity Rule).",
+      "**Do** делать новые плавающие поверх карты слои из bg-surface с рамкой 1 px border и тенью из словаря Elevation & Depth.",
+      "**Do** класть карточки и поля внутри шторки на bg-canvas, а нажатые и вторичные кнопки — на bg-raised.",
+      "**Do** давать каждой цели касания минимум 44×44 px и счётчикам — табличные цифры.",
+      "**Do** показывать отсутствие данных честной строкой приглушённого текста, а не пустым местом.",
+      "**Do** анимировать только на кривой ease-out системы и выключать движение при reduced motion."
+    ],
+    "donts": [
+      "**Don't** красить кнопки, рамки или фоны интерфейса в цвета линий.",
+      "**Don't** делать обычную станцию белой или крупнее радиуса 5: белый и большой кружок принадлежат пересадке.",
+      "**Don't** давать теней карточкам, кнопкам и полям; глубина — тоном и рамкой.",
+      "**Don't** вводить светлую тему или вторую гарнитуру.",
+      "**Don't** набирать текст интерфейса мельче 11 px."
+    ]
+  }
+}
