@@ -1,6 +1,8 @@
 # Secrets and local configs
 .env
-.env.*
+.env.local
+.env.*.local
+!.env.example
 current_tunnel_url.txt
 
 # Binaries and backups
