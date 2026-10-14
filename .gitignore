@@ -1,0 +1,16 @@
+# Secrets and local configs
+.env
+.env.*
+current_tunnel_url.txt
+
+# Binaries and backups
+cloudflared
+*.bak
+*.pyc
+__pycache__/
+.DS_Store
+
+# Virtual environment
+.venv/
+venv/
+env/
