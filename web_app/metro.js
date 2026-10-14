@@ -7,6 +7,7 @@
   const SVG_NS = 'http://www.w3.org/2000/svg';
   const FILLER_STEP = /Изучите продемонстрированный|Адаптируйте ключевые принципы/i;
   const FAV_KEY = 'kb_favorites';
+  const LEGEND_KEY = 'metro_legend_open';
   const ZOOM_MIN = 0.7, ZOOM_MAX = 2.2, ZOOM_FOCUS = 1.25;
   const SHEET_HALF = 0.40;
 
@@ -376,6 +377,37 @@
       }, sw, h('span', { class: 'leg-name', text: def.label }), h('span', { class: 'leg-count', text: String(lineCount(line)) })));
     }
   }
+  // Легенда сворачивается в кнопку «Линии». На узких экранах по умолчанию свёрнута,
+  // чтобы схема была крупнее; выбор пользователя запоминаем.
+  const legendBox = $('legendBox'), legendBtn = $('legendBtn');
+  function legendOpenByDefault() {
+    try {
+      const v = localStorage.getItem(LEGEND_KEY);
+      if (v !== null) return v === '1';
+    } catch (_) { /* хранилище недоступно */ }
+    return window.innerWidth >= 420;
+  }
+  function setLegendOpen(open, refit) {
+    legendBox.classList.toggle('collapsed', !open);
+    legendBtn.setAttribute('aria-expanded', String(open));
+    legendBtn.setAttribute('aria-label', open ? 'Свернуть легенду линий' : 'Показать легенду линий');
+    if (!refit || !contentBox) return;
+    computeFit();
+    if (!state.focus && !state.route) fitView(true);
+  }
+  for (const def of Object.values(MAP.lines)) {
+    const d = h('span', { class: 'legend-dot' });
+    d.style.background = def.color;
+    $('legendDots').append(d);
+  }
+  legendBtn.addEventListener('click', () => {
+    const open = legendBox.classList.contains('collapsed');
+    try { localStorage.setItem(LEGEND_KEY, open ? '1' : '0'); } catch (_) { /* не запоминаем */ }
+    haptic('light');
+    setLegendOpen(open, true);
+  });
+  setLegendOpen(legendOpenByDefault(), false);
+
   function setFilter(line) {
     haptic('select');
     state.filter = line;

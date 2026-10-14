@@ -195,9 +195,7 @@ button { cursor: pointer; }
   position: absolute;
   top: 8px; left: calc(8px + env(safe-area-inset-left, 0px));
   z-index: 4;
-}
-.legend {
-  display: flex; flex-direction: column; gap: 1px;
+  display: flex; flex-direction: column; align-items: stretch;
   padding: 4px;
   border-radius: 14px;
   background: rgba(17, 24, 39, 0.82);
@@ -205,6 +203,22 @@ button { cursor: pointer; }
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+.legend { display: flex; flex-direction: column; gap: 1px; }
+.controls.collapsed .legend { display: none; }
+.legend-toggle {
+  height: 36px; padding: 0 8px;
+  display: flex; align-items: center; gap: 8px;
+  border-radius: 10px; border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+}
+.legend-dots { display: none; gap: 3px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+.legend-chev { margin-left: auto; transition: transform 150ms var(--ease-out); }
+.controls.collapsed .legend-toggle { height: 40px; color: var(--text-station); }
+.controls.collapsed .legend-dots { display: inline-flex; }
+.controls.collapsed .legend-chev { transform: rotate(180deg); }
 .leg {
   height: 34px; padding: 0 8px;
   display: grid; grid-template-columns: 16px auto auto; align-items: center; column-gap: 8px;
